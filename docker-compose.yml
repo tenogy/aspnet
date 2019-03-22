@@ -17,7 +17,8 @@ services:
     ports:
       - "8080:80"
       # - "8443:443"
-    command: dotnet ./app/webapp.dll
+    working_dir: /app
+    command: dotnet webapp.dll
     depends_on:
       - "src"
 volumes:
