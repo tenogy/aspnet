@@ -1,0 +1,24 @@
+version: "3.4"
+
+services:
+  src:
+    image: ${DOCKER_REGISTRY}aspnet
+    volumes:
+      - web-content:/app
+
+  web:
+    image: mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      # - ASPNETCORE_URLS=https://+:443;http://+:80
+      # - ASPNETCORE_HTTPS_PORT=443
+    volumes:
+      - web-content:/app
+    ports:
+      - "8080:80"
+      # - "8443:443"
+    command: dotnet ./app/webapp.dll
+    depends_on:
+      - "src"
+volumes:
+  web-content:
