@@ -5,21 +5,30 @@ services:
     image: ${DOCKER_REGISTRY}aspnet
     volumes:
       - web-content:/app
+    networks:
+      - frontend
 
   web:
     image: mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
+    container_name: aspnet_test
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       # - ASPNETCORE_URLS=https://+:443;http://+:80
       # - ASPNETCORE_HTTPS_PORT=443
     volumes:
       - web-content:/app
-    ports:
-      - "8080:80"
-      # - "8443:443"
+    networks:
+      - frontend
+    # ports:
+    # - "8080:80"
+    # - "8443:443"
     working_dir: /app
     command: dotnet webapp.dll
     depends_on:
       - "src"
 volumes:
   web-content:
+networks:
+  frontend:
+    external:
+      name: frontend
