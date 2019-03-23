@@ -2,6 +2,7 @@ version: "3.4"
 
 services:
   src:
+    restart: unless-stopped
     image: ${DOCKER_REGISTRY}aspnet
     volumes:
       - web-content:/app
@@ -9,6 +10,7 @@ services:
       - frontend
 
   web:
+    restart: unless-stopped
     image: mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
     container_name: aspnet_test
     environment:
@@ -19,8 +21,8 @@ services:
       - web-content:/app
     networks:
       - frontend
-    # ports:
-    # - "8080:80"
+    ports:
+      - "8080:80"
     # - "8443:443"
     working_dir: /app
     command: dotnet webapp.dll
