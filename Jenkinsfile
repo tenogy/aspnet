@@ -2,7 +2,7 @@ pipeline {
     agent any
      environment {
         version: 1.0
-        sdk-version = '3.0.100-alpine3.9'
+        sdk-version: '3.0.100-alpine3.9'
     }
       stages {
         stage('Build') {
