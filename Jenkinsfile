@@ -4,6 +4,7 @@ pipeline {
         version = 1.0
         sdkVersion = '3.0.100-alpine3.9'
         imageName = 'tenogy/aspnet'
+        SSH_PASS = credentials('SSH_PASS')
     }
       stages {
         stage('Build') {
@@ -16,11 +17,16 @@ pipeline {
                 sh 'ls -a'
             }
         }
+        stage('Deployment') {
+            steps {
+                sh './scripts/deploy/production.sh'
+            }
+        }
     }
     post {
         always {
             echo 'Clean up'
-            sh 'docker rmi $(docker images ${imageName} -q) -f'
+            //sh 'docker rmi $(docker images ${imageName} -q) -f'
             sh 'docker container prune -f'
             sh 'docker image prune -f'
         }
