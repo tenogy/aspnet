@@ -20,7 +20,7 @@ pipeline {
         stage('Deployment') {
             steps {
                 sh 'chmod +x ./scripts/deploy/production.sh'
-                ssh-agent ./scripts/deploy/production.sh /home/.ssh/id_rsa
+                sh 'ssh-agent ./scripts/deploy/production.sh /home/.ssh/id_rsa'
             }
         }
     }
