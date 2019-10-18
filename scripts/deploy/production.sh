@@ -1,4 +1,4 @@
-exec ssh-agent bash
+ssh-agent sh
 
 ssh-add-pass /home/.ssh/id_rsa
 
