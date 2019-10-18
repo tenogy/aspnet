@@ -5,13 +5,11 @@ pipeline {
         sdkVersion = '3.0.100-alpine3.9'
         imageName = 'tenogy/aspnet'
         SSH_PASS = credentials('SSH_PASS')
-        PUB_HOST = credentials('PUB_HOST')       
+        PUB_HOST = credentials('PUB_HOST')
+        PUB_IMAGE= getTag()
     }
       stages {
         stage('Build') {
-            environment {
-                 PUB_IMAGE= '${env.imageName}:${env.version}.${env.BUILD_NUMBER}'
-            }
             steps {
                 sh 'docker build -t ${PUB_IMAGE} --build-arg VERSION=${sdkVersion} .'
             }
@@ -36,4 +34,8 @@ pipeline {
             sh 'docker image prune -f'
         }
     }
+}
+
+def getTag() {
+     return '${env.imageName}:${env.version}.${env.BUILD_NUMBER}';
 }
