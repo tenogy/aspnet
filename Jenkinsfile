@@ -19,6 +19,8 @@ pipeline {
         }
         stage('Deployment') {
             steps {
+                sh 'chmod +x ./scripts/deploy/production.sh'
+                sh 'chmod +x ./scripts/deploy/ssh-add-pass'
                 sh './scripts/deploy/production.sh'
             }
         }
