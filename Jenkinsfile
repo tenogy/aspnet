@@ -37,5 +37,5 @@ pipeline {
 }
 
 def getTag() {
-     return '${env.imageName}:${env.version}.${env.BUILD_NUMBER}';
+     return env.imageName+':${env.version}.${env.BUILD_NUMBER}';
 }
