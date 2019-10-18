@@ -6,11 +6,12 @@ pipeline {
         imageName = 'tenogy/aspnet'
         SSH_PASS = credentials('SSH_PASS')
         PUB_HOST = credentials('PUB_HOST')
+        PUB_IMAGE= '${imageName}:${version}.${BUILD_NUMBER}'
     }
       stages {
         stage('Build') {
             steps {
-                sh 'docker build -t ${imageName}:${version}.${BUILD_NUMBER} --build-arg VERSION=${sdkVersion} .'
+                sh 'docker build -t ${PUB_IMAGE} --build-arg VERSION=${sdkVersion} .'
             }
         }
         stage('Test') {

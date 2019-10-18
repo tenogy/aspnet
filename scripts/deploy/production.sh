@@ -23,8 +23,9 @@ export HISTIGNORE="";
 pass="";
 
 
-ssh $PUB_HOST docker ps -a
+docker save $PUB_IMAGE | ssh -C $PUB_HOST docker load
 
+ssh $PUB_HOST docker ps -a
 
 #clean up
 ssh-add -D
