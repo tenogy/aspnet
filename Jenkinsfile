@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     env.PUB_IMAGE = '${imageName}:${version}.${BUILD_NUMBER}'
-                    sh 'docker build -t ${PUB_IMAGE} --build-arg VERSION=${sdkVersion} .'
+                    docker build -t ${PUB_IMAGE} --build-arg VERSION=${sdkVersion} .
                 }
             }
         }
