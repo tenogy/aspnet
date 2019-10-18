@@ -23,6 +23,9 @@ export HISTIGNORE="";
 pass="";
 
 
-ssh-add -l
+ssh $PUB_HOST docker ps -a
+
+
+#clean up
 ssh-add -D
 exit
