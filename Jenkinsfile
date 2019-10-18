@@ -20,7 +20,7 @@ pipeline {
     post {
         always {
             echo 'Clean up'
-            sh 'docker rmi $(docker images ${imageName}1 -q) -f'
+            sh 'docker rmi $(docker images ${imageName} -q) -f'
             sh 'docker container prune -f'
             sh 'docker image prune -f'
         }
