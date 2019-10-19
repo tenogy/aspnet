@@ -22,9 +22,7 @@ pipeline {
             }
         }
         stage('Staging') {
-            when {
-                branch 'production'  
-            }
+            when { branch 'production' }
             steps {
                 sh 'chmod +x ./scripts/deploy/production.sh'
                 sh 'ssh-agent ./scripts/deploy/production.sh /home/.ssh/id_rsa'
