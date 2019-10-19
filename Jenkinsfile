@@ -6,6 +6,7 @@ pipeline {
         RUNTIME_VERSION = '3.0.0-alpine3.9'
         IMAGE_NAME = 'tenogy/aspnet'
         IMAGE_VERTION = 'tenogy/aspnet:1.0'
+        RELEASE_VERTION = '1.0'
         SSH_PASS = credentials('SSH_PASS')
         PUB_HOST = credentials('PUB_HOST')
         APP_DIR = '/app/aspnet'
