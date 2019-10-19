@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Production') {
             when { 
-                branch 'production'
+                branch "production"
                 tag "release-*" 
             } 
             steps {
