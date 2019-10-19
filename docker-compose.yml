@@ -2,8 +2,7 @@ version: "3.4"
 
 services:
   src:
-    restart: unless-stopped
-    image: ${DOCKER_REGISTRY}aspnet
+    image: ${DOCKER_REGISTRY}${IMAGE_VERTION}.${BUILD_NUMBER}
     volumes:
       - web-content:/app
     networks:
@@ -11,57 +10,32 @@ services:
 
   web0:
     restart: unless-stopped
-    image: mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
+    image: mcr.microsoft.com/dotnet/core/aspnet:${RUNTIME_VERSION}
     container_name: web_0
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      # - ASPNETCORE_URLS=https://+:443;http://+:80
-      # - ASPNETCORE_HTTPS_PORT=443
     volumes:
       - web-content:/app
     networks:
       - frontend
     ports:
       - "8080:80"
-    # - "8443:443"
     working_dir: /app
     command: dotnet webapp.dll
     depends_on:
       - "src"
   web1:
     restart: unless-stopped
-    image: mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
+    image: mcr.microsoft.com/dotnet/core/aspnet:${RUNTIME_VERSION}
     container_name: web_1
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      # - ASPNETCORE_URLS=https://+:443;http://+:80
-      # - ASPNETCORE_HTTPS_PORT=443
     volumes:
       - web-content:/app
     networks:
       - frontend
     ports:
       - "8081:80"
-    # - "8443:443"
-    working_dir: /app
-    command: dotnet webapp.dll
-    depends_on:
-      - "src"
-  web2:
-    restart: unless-stopped
-    image: mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
-    container_name: web_2
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      # - ASPNETCORE_URLS=https://+:443;http://+:80
-      # - ASPNETCORE_HTTPS_PORT=443
-    volumes:
-      - web-content:/app
-    networks:
-      - frontend
-    ports:
-      - "8082:80"
-    # - "8443:443"
     working_dir: /app
     command: dotnet webapp.dll
     depends_on:

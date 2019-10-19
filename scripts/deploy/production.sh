@@ -22,10 +22,13 @@ EOF
 export HISTIGNORE="";
 pass="";
 
-
+#save new image on remote server
 docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 
+#show active containers
 ssh $PUB_HOST docker ps -a
+
+ech ./docker-compose.yml
 
 #clean up
 ssh-add -D
