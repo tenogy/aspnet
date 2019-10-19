@@ -29,7 +29,7 @@ docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 for i in 0 1
 do
 	export CURR_NUM=$i;
-  dockerCompose = $APP_DIR/host$CURR_NUM/docker-compose.yml;
+  dockerCompose=$APP_DIR/host$CURR_NUM/docker-compose.yml;
   # stop host
   ssh $PUB_HOST docker-compose -f $dockerCompose down -v --remove-orphans 
   # change docker-compose.yml on remote server
