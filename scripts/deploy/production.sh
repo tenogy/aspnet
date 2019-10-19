@@ -23,7 +23,7 @@ export HISTIGNORE="";
 pass="";
 
 #remove previos container versions
-ssh $PUB_HOST ch 'docker rmi $(docker images ${IMAGE_NAME} -q) -f';
+ssh $PUB_HOST sh 'docker rmi $(docker images ${IMAGE_NAME} -q) -f';
 #save new image on remote server
 docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load;
 
