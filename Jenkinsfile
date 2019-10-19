@@ -1,17 +1,16 @@
 pipeline {
     agent any
-     environment {
-        version = 1.0
-        sdkVersion = '3.0.100-alpine3.9'
-        imageName = 'tenogy/aspnet'
+     envversion = 1.0
+        SDK_VERSION = '3.0.100-alpine3.9'
+        IMAGE_NAME = 'tenogy/aspnet'
+        IMAGE_VERTION = 'tenogy/aspnet:1.0'
         SSH_PASS = credentials('SSH_PASS')
         PUB_HOST = credentials('PUB_HOST')
-        PUB_IMAGE= getTag()
     }
       stages {
         stage('Build') {
             steps {
-                sh 'docker build -t ${PUB_IMAGE} --build-arg VERSION=${sdkVersion} .'
+                sh 'docker build -t ${IMAGE_VERTION}.${BUILD_NUMBER} --build-arg VERSION=${SDK_VERSION} .'
             }
         }
         stage('Test') {
@@ -29,13 +28,9 @@ pipeline {
     post {
         always {
             echo 'Clean up'
-            sh 'docker rmi $(docker images ${imageName} -q) -f'
+            sh 'docker rmi $(docker images ${IMAGE_NAME} -q) -f'
             sh 'docker container prune -f'
             sh 'docker image prune -f'
         }
     }
-}
-
-def getTag() {
-     return env.imageName+':${env.version}.${env.BUILD_NUMBER}';
 }

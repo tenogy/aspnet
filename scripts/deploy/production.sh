@@ -23,7 +23,7 @@ export HISTIGNORE="";
 pass="";
 
 
-docker save $PUB_IMAGE | ssh -C $PUB_HOST docker load
+docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 
 ssh $PUB_HOST docker ps -a
 
