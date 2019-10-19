@@ -24,6 +24,7 @@ pass="";
 
 #remove previos container versions
 ssh $PUB_HOST docker rmi $(docker images ${IMAGE_NAME} -q) -f;
+wait $!
 #save new image on remote server
 docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load;
 
