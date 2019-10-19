@@ -33,7 +33,7 @@ pipeline {
             when { 
                 branch "production"
                 expression {
-                    IS_RELEASE = sh(returnStdout: true, script: 'git describe --tags --always').trim().startsWith("release-")
+                    IS_RELEASE = sh(returnStdout: true, script: 'git describe --tags --always').trim().startsWith("release-${RELEASE_VERTION}")
                     return (IS_RELEASE == true)
                 }
             } 
