@@ -21,13 +21,20 @@ pipeline {
                 sh 'ls -a'
             }
         }
-        stage('Deployment') {
+        stage('Staging') {
             when {
                 branch 'production'  
             }
             steps {
                 sh 'chmod +x ./scripts/deploy/production.sh'
                 sh 'ssh-agent ./scripts/deploy/production.sh /home/.ssh/id_rsa'
+            }
+        }
+        stage('Production') {
+            when {
+                when { tag "release-*" } 
+            }
+            steps {
                 input message: 'Publish release to production? (Click "Proceed" to continue)'
                 sh 'echo Publishing release ${IMAGE_VERTION}.${BUILD_NUMBER} to prod...'
             }
