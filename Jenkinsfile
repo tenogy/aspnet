@@ -22,9 +22,14 @@ pipeline {
             }
         }
         stage('Deployment') {
+            when {
+                branch 'production'  
+            }
             steps {
                 sh 'chmod +x ./scripts/deploy/production.sh'
                 sh 'ssh-agent ./scripts/deploy/production.sh /home/.ssh/id_rsa'
+                input message: 'Publish release to production? (Click "Proceed" to continue)'
+                sh 'echo Publishing release ${IMAGE_VERTION}.${BUILD_NUMBER} to prod...'
             }
         }
     }
