@@ -22,6 +22,8 @@ EOF
 export HISTIGNORE="";
 pass="";
 
+#remove previos container versions
+ssh $PUB_HOST docker rmi $(docker images ${IMAGE_NAME} -q) -f
 #save new image on remote server
 docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 
@@ -38,6 +40,9 @@ do
   # start host
   ssh $PUB_HOST docker-compose -f $dockerCompose up -d
 done
+
+#clear docker
+ssh $PUB_HOST docker system prune -f
 
 #show active containers
 ssh $PUB_HOST docker ps -a
