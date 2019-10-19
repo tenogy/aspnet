@@ -2,18 +2,16 @@ version: "3.4"
 
 services:
   src:
-    restart: unless-stopped
-    container_name: src
     image: ${IMAGE_VERTION}.${BUILD_NUMBER}
     volumes:
       - web-content:/app
     networks:
       - frontend
 
-  web0:
+  web${CURR_NUM}:
     restart: unless-stopped
     image: mcr.microsoft.com/dotnet/core/aspnet:${RUNTIME_VERSION}
-    container_name: web_0
+    container_name: web_${CURR_NUM}
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     volumes:
@@ -21,23 +19,7 @@ services:
     networks:
       - frontend
     ports:
-      - "8080:80"
-    working_dir: /app
-    command: dotnet webapp.dll
-    depends_on:
-      - "src"
-  web1:
-    restart: unless-stopped
-    image: mcr.microsoft.com/dotnet/core/aspnet:${RUNTIME_VERSION}
-    container_name: web_1
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    volumes:
-      - web-content:/app
-    networks:
-      - frontend
-    ports:
-      - "8081:80"
+      - "808${CURR_NUM}:80"
     working_dir: /app
     command: dotnet webapp.dll
     depends_on:

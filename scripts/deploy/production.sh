@@ -28,9 +28,20 @@ docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 #show active containers
 ssh $PUB_HOST docker ps -a
 
-# change docker-compose.yml on remote server
-ssh $PUB_HOST rm $APP_DIR/docker-compose.yml
-( echo "cat <<EOF" ; cat docker-compose.yml ; echo EOF ) | sh | ssh -C $PUB_HOST "cat >> $APP_DIR/docker-compose.yml"
+# update remote hosts
+for i in 0 1
+do
+	export CURR_NUM = i
+  dockerCompose = $APP_DIR/host$CURR_NUM/docker-compose.yml
+  # stop host
+  ssh $PUB_HOST docker-compose -f $dockerCompose down -v --remove-orphans 
+  # change docker-compose.yml on remote server
+  ssh $PUB_HOST rm $APP_DIR/host$CURR_NUM/docker-compose.yml
+  ( echo "cat <<EOF" ; cat docker-compose.yml ; echo EOF ) | sh | ssh -C $PUB_HOST "cat >> $dockerCompose"
+  # start host
+  ssh $PUB_HOST docker-compose -f $dockerCompose up -d
+done
+
 
 #clean up
 ssh-add -D
