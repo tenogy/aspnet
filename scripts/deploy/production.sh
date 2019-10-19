@@ -28,7 +28,7 @@ docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 #show active containers
 ssh $PUB_HOST docker ps -a
 
-echo ./docker-compose.yml
+cat ./docker-compose.yml
 
 #clean up
 ssh-add -D
