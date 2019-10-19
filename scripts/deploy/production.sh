@@ -27,6 +27,8 @@ docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 
 ssh $PUB_HOST docker ps -a
 
+echo "2:" && ps
 #clean up
 ssh-add -D
 exit
+echo "3:" && ps
