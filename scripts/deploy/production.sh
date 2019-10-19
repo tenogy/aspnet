@@ -44,7 +44,8 @@ done
 #clear docker
 ssh $PUB_HOST docker system prune -f
 
-#show active containers
+#show images and active containers
+ssh $PUB_HOST docker images
 ssh $PUB_HOST docker ps -a
 
 #clean up
