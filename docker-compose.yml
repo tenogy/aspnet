@@ -2,7 +2,9 @@ version: "3.4"
 
 services:
   src:
-    image: ${DOCKER_REGISTRY_TEMPLATE}${IMAGE_VERTION}.${BUILD_NUMBER}
+    restart: unless-stopped
+    container_name: src
+    image: ${IMAGE_VERTION}.${BUILD_NUMBER}
     volumes:
       - web-content:/app
     networks:

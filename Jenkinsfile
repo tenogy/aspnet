@@ -8,7 +8,6 @@ pipeline {
         IMAGE_VERTION = 'tenogy/aspnet:1.0'
         SSH_PASS = credentials('SSH_PASS')
         PUB_HOST = credentials('PUB_HOST')
-        DOCKER_REGISTRY_TEMPLATE = '${DOCKER_REGISTRY}'
         APP_DIR = '/app/aspnet'
     }
       stages {
