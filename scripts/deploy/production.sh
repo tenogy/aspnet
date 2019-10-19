@@ -23,8 +23,7 @@ export HISTIGNORE="";
 pass="";
 
 #remove previos container versions
-echo "(if [ \"\$(docker images -q ${IMAGE_NAME})\" ]; then docker rmi \$(docker images ${IMAGE_NAME} -q) -f); else echo No images for remove";
-ssh $PUB_HOST "(if [ \"\$(docker images -q ${IMAGE_NAME})\" ]; then docker rmi \$(docker images ${IMAGE_NAME} -q) -f); else echo No images for remove";
+ssh $PUB_HOST "(if [ \$(docker images -q ${IMAGE_NAME}) ]; then docker rmi \$(docker images ${IMAGE_NAME} -q) -f; else echo /"No images for remove/";fi;);";
 #save new image on remote server
 docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load;
 
