@@ -5,7 +5,7 @@ pipeline {
         SDK_VERSION = '3.0.100-alpine3.9'
         RUNTIME_VERSION = '3.0.0-alpine3.9'
         IMAGE_NAME = 'tenogy/aspnet'
-        IMAGE_VERTION = 'tenogy/aspnet:1.0'
+        IMAGE_VERTION = 'tenogy/aspnet:1.1'
         RELEASE_VERTION = '1.1'
         SSH_PASS = credentials('SSH_PASS')
         PUB_HOST = credentials('PUB_HOST')
