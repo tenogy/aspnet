@@ -1,6 +1,7 @@
 pipeline {
     agent any
-     envversion = 1.0
+    
+    environment {
         SDK_VERSION = '3.0.100-alpine3.9'
         IMAGE_NAME = 'tenogy/aspnet'
         IMAGE_VERTION = 'tenogy/aspnet:1.0'
