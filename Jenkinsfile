@@ -32,7 +32,10 @@ pipeline {
         stage('Production') {
             when { 
                 branch "production"
-                tag "release-*" 
+                expression {
+                    IS_RELEASE = sh(returnStdout: true, script: 'git describe --tags --always').trim().startsWith("release-")
+                    return (IS_RELEASE == true)
+                }
             } 
             steps {
                 input message: 'Publish release to production? (Click "Proceed" to continue)'
