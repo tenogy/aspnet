@@ -29,7 +29,7 @@ docker save ${IMAGE_VERTION}.${BUILD_NUMBER} | ssh -C $PUB_HOST docker load
 ssh $PUB_HOST docker ps -a
 
 # change docker-compose.yml on remote server
-( echo "cat <<EOF" ; cat docker-compose.yml ; echo EOF ) | sh | ssh -C $PUB_HOST cat > $APP_DIR/docker-compose.yml
+( echo "cat <<EOF" ; cat docker-compose.yml ; echo EOF ) | sh | ssh -C $PUB_HOST "cat >> $APP_DIR/docker-compose.yml"
 
 #clean up
 ssh-add -D
